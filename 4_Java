@@ -1,0 +1,97 @@
+package com.company;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
+
+public class Main {
+    static String sentences;
+    static String nothing;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setSize(500, 400);
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.cyan);
+
+        JLabel labelChat = new JLabel("Chat");
+        labelChat.setLocation(10,10);
+        labelChat.setFont(new Font("Monotype Corsiva",Font.PLAIN,15));
+
+        JTextField textInput = new JTextField();
+        textInput.setSize(440, 150);
+        textInput.setLocation(20, 20);
+        textInput.setFont(new Font("Monotype Corsiva",Font.PLAIN,25));
+        textInput.setForeground(Color.RED);
+        textInput.setHorizontalAlignment(SwingConstants.RIGHT);
+
+
+        JTextField text = new JTextField();
+        text.setSize(440, 50);
+        text.setLocation(20, 200);
+        text.setFont(new Font("Monotype Corsiva",Font.PLAIN,25));
+        textInput.setForeground(Color.RED);
+        text.setHorizontalAlignment(SwingConstants.RIGHT);
+
+
+        JButton button01[] = new JButton[35];
+        JButton button1=new JButton("REMOVE");
+        button1.setSize(100, 30);
+        button1.setLocation(200, 300);
+        //button1.setText("7");
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sentences=textInput.getText()+text.getText();
+                textInput.setText(sentences);
+                text.setText(nothing);
+            }
+        });
+
+        JMenuBar mainMenu = new JMenuBar();
+        JMenu mFile = new JMenu("File");
+        JMenuItem miFileNew = new JMenuItem("New");
+        JMenuItem miFileExit = new JMenuItem("Exit");
+        frame.setJMenuBar(mainMenu);
+        mainMenu.add(mFile);
+        mFile.add(miFileNew);
+        mFile.addSeparator(); // разделительная линия в меню
+        mFile.add(miFileExit);
+
+
+
+        miFileNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textInput.setText(nothing);
+                text.setText(nothing);
+            }
+        });
+
+        miFileExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.out.println("BYE");
+            }
+        });
+
+        panel.add(labelChat);
+        frame.add(button1);
+        frame.add(textInput);
+        frame.add(text);
+        frame.add(panel);
+        frame.setVisible(true);
+
+    }
+}
